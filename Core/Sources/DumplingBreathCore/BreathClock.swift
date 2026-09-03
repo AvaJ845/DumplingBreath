@@ -17,7 +17,17 @@ public struct BreathClock: Equatable, Sendable {
         public var phase: BreathPhase
         public var phaseProgress: Double   // 0…1 within the current phase
         public var openness: Double        // 0 = deflated, 1 = inflated, eased
+        public var velocity: Double        // d(openness)/dt, openness-per-second
         public var completedCycles: Int
+
+        public init(phase: BreathPhase, phaseProgress: Double, openness: Double,
+                    velocity: Double, completedCycles: Int) {
+            self.phase = phase
+            self.phaseProgress = phaseProgress
+            self.openness = openness
+            self.velocity = velocity
+            self.completedCycles = completedCycles
+        }
     }
 
     public func sample(at t: Double) -> Sample {
@@ -26,13 +36,19 @@ public struct BreathClock: Equatable, Sendable {
         let completed = Int(clamped / cycle)
         let within = clamped.truncatingRemainder(dividingBy: cycle)
         let (phase, progress) = resolve(within: within)
-        let openness = Self.ease(
-            from: Self.startOpenness(of: phase),
-            to: phase.targetOpenness,
-            t: progress)
+        let from = Self.startOpenness(of: phase)
+        let to = phase.targetOpenness
+        let openness = Self.ease(from: from, to: to, t: progress)
+        // Analytic derivative of the smoothstep, so the view/haptics can lead
+        // the breath (anticipation, transients at the turn) without differencing
+        // frames. Zero during holds (from == to) and at either turn (progress
+        // 0 or 1), where 6·x·(1−x) vanishes.
+        let d = pattern.duration(of: phase)
+        let velocity = d > 0 ? (to - from) * 6 * progress * (1 - progress) / d : 0
         return Sample(phase: phase,
                       phaseProgress: progress,
                       openness: openness,
+                      velocity: velocity,
                       completedCycles: completed)
     }
 
@@ -62,5 +78,16 @@ public struct BreathClock: Equatable, Sendable {
         let x = min(max(t, 0), 1)
         let s = x * x * (3 - 2 * x)
         return a + (b - a) * s
+    }
+
+    /// A gentle "breathing at rest" oscillation for when no session is running.
+    /// Returns a small signed value the idle view adds to a neutral openness so
+    /// the dumpling looks alive — not instructional — before it is pressed.
+    /// Pure and phase-free; the view owns whether to honour Reduce Motion.
+    public static func restWobble(at t: Double,
+                                  period: Double = 6,
+                                  amplitude: Double = 0.05) -> Double {
+        guard period > 0 else { return 0 }
+        return amplitude * sin(2 * .pi * t / period)
     }
 }

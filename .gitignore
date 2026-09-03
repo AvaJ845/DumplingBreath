@@ -8,8 +8,9 @@ xcuserdata/
 *.xcuserstate
 *.xcscmblueprint
 
-# XcodeGen generates the project; keep only project.yml in git
+# XcodeGen generates these from project.yml — keep only project.yml in git
 DumplingBreath.xcodeproj/
+Config/
 
 # macOS
 .DS_Store

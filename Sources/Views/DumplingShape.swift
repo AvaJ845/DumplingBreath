@@ -1,11 +1,13 @@
 import SwiftUI
 
-/// A plump, pleated dumpling that inflates and deflates with `openness`.
-/// Pure geometry, no images.
+/// A plump, pleated dumpling silhouette. Pure geometry, no images.
 ///
-/// SCAFFOLD — Agent 1 (Core interaction & feel) owns replacing/augmenting this
-/// with a Metal `distortionEffect` squish so it deforms under the thumb, plus a
-/// Reduce Motion path that cross-fades scale instead of morphing pleats.
+/// This is now just the *outline*: `DumplingView` renders it at a fixed neutral
+/// `openness` and the Metal `dumplingSquish` distortion shader does the living
+/// motion — inflate/deflate, the thumb dimple, the idle wobble. The `openness`
+/// parameter is still honoured (Reduce Motion draws a static form and animates
+/// scale/opacity around it) and keeps the shape usable on its own, e.g. as a
+/// mask or in the Watch target.
 struct DumplingShape: Shape {
     /// 0 = deflated and wide, 1 = round and full.
     var openness: Double

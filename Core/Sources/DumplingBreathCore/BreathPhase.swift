@@ -27,4 +27,8 @@ public enum BreathPhase: String, CaseIterable, Sendable {
     }
 
     public var isMoving: Bool { self == .inhale || self == .exhale }
+
+    /// A static hold — openness is constant, so live consumers can throttle
+    /// rendering work while one of these is on screen.
+    public var isHold: Bool { !isMoving }
 }

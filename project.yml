@@ -19,33 +19,79 @@ settings:
     CODE_SIGN_STYLE: Automatic
     ALWAYS_SEARCH_USER_PATHS: NO
 
-# The pure breath-math lives in Core/ as a Swift package so `swift test` runs it
-# instantly and, later, the watchOS target can share it verbatim. It is compiled
-# here as an in-project framework to keep XcodeGen's local-package wiring simple.
-# Agent 3 owns promoting this to a proper multi-platform shared target.
+# ---------------------------------------------------------------------------
+# The pure breath-math lives in Core/ as a Swift package so `swift test` runs
+# it instantly. It is ALSO compiled here as two framework targets (iOS +
+# watchOS) that share one PRODUCT_NAME, so the iPhone/iPad app and the Watch app
+# link one identical copy of BreathClock / BreathPhase / BreathingPattern —
+# no fork, no copy-paste. (Agent 3 owns this promotion.)
+# ---------------------------------------------------------------------------
 targets:
-  DumplingBreathCore:
+
+  # One source of truth (the three files under Core/Sources/DumplingBreathCore),
+  # compiled by two tiny single-platform framework targets that share the same
+  # PRODUCT_NAME — so `import DumplingBreathCore` is identical on iPhone/iPad and
+  # on the Watch, with zero copy-paste. The files import only Foundation (no
+  # UIKit), so the watchOS slice compiles verbatim.
+  #
+  # (XcodeGen's `platform: [iOS, watchOS]` multi-slice target was tried first;
+  # in 2.44.1 + Xcode 26 it drops SDKROOT project-wide. Two explicit targets is
+  # the robust equivalent.)
+  DumplingBreathCore_iOS:
     type: framework
     platform: iOS
     sources:
       - path: Core/Sources/DumplingBreathCore
     settings:
       base:
+        SDKROOT: iphoneos
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
         PRODUCT_NAME: DumplingBreathCore
         PRODUCT_BUNDLE_IDENTIFIER: com.avaresearch.dumplingbreath.core
         GENERATE_INFOPLIST_FILE: YES
         DEFINES_MODULE: YES
         SKIP_INSTALL: YES
 
+  DumplingBreathCore_watchOS:
+    type: framework
+    platform: watchOS
+    sources:
+      - path: Core/Sources/DumplingBreathCore
+    settings:
+      base:
+        SDKROOT: watchos
+        SUPPORTED_PLATFORMS: "watchos watchsimulator"
+        PRODUCT_NAME: DumplingBreathCore
+        PRODUCT_BUNDLE_IDENTIFIER: com.avaresearch.dumplingbreath.core
+        GENERATE_INFOPLIST_FILE: YES
+        DEFINES_MODULE: YES
+        SKIP_INSTALL: YES
+
+  # -------------------------------------------------------------------------
+  # iPhone / iPad app
+  # -------------------------------------------------------------------------
   DumplingBreath:
     type: application
     platform: iOS
     sources:
       - path: App
       - path: Sources
+      - path: AppIntents
+      - path: Health
     dependencies:
-      - target: DumplingBreathCore
+      - target: DumplingBreathCore_iOS
         embed: true
+      - target: DumplingBreathWidgets
+        embed: true
+      - target: DumplingBreathWatch
+        embed: true
+    entitlements:
+      path: Config/DumplingBreath.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.avaresearch.dumplingbreath
+        com.apple.developer.healthkit: true
+        com.apple.developer.healthkit.access: []
     info:
       path: App/Info.plist
       properties:
@@ -61,8 +107,26 @@ targets:
           - UIInterfaceOrientationLandscapeRight
         ITSAppUsesNonExemptEncryption: false
         UIBackgroundModes: []
+        # Deep link used by the widgets and the App Intent to open a session.
+        CFBundleURLTypes:
+          - CFBundleURLName: com.avaresearch.dumplingbreath
+            CFBundleURLSchemes:
+              - dumplingbreath
+        # HealthKit is OFF until the person turns it on in Settings inside the
+        # app. These strings only ever appear at that opt-in moment.
+        NSHealthShareUsageDescription: >-
+          Dumpling Breath can read your Mindful Minutes so a completed session
+          shows up alongside the rest of your mindfulness time. This is optional
+          and stays on your device.
+        NSHealthUpdateUsageDescription: >-
+          Turn this on and Dumpling Breath logs a finished session as Mindful
+          Minutes in the Health app, and — if you choose — a State of Mind
+          entry. Nothing is sent anywhere; it is written only to Health on this
+          device.
     settings:
       base:
+        SDKROOT: iphoneos
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
         PRODUCT_NAME: DumplingBreath
         PRODUCT_BUNDLE_IDENTIFIER: com.avaresearch.dumplingbreath
         INFOPLIST_KEY_UIStatusBarStyle: UIStatusBarStyleDefault
@@ -71,5 +135,94 @@ targets:
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
 
-  # Breath-math tests run via `cd Core && swift test` (fast, no simulator).
-  # Agent 1 owns adding a host-app UI/interaction test target when it's warranted.
+  # -------------------------------------------------------------------------
+  # Widget + Control Center extension (Lock Screen, Home Screen, Control)
+  # -------------------------------------------------------------------------
+  DumplingBreathWidgets:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: Widget
+      - path: AppIntents/StartDumplingBreathIntent.swift
+      - path: AppIntents/BreathPatternAppEnum.swift
+      - path: AppIntents/SessionRequestStore.swift
+    dependencies:
+      - target: DumplingBreathCore_iOS
+        embed: false
+        link: true
+    entitlements:
+      path: Config/DumplingBreathWidgets.entitlements
+      properties:
+        com.apple.security.application-groups:
+          - group.com.avaresearch.dumplingbreath
+    info:
+      path: Config/Widgets-Info.plist
+      properties:
+        CFBundleDisplayName: Dumpling Breath
+        NSExtension:
+          NSExtensionPointIdentifier: com.apple.widgetkit-extension
+    settings:
+      base:
+        SDKROOT: iphoneos
+        SUPPORTED_PLATFORMS: "iphoneos iphonesimulator"
+        PRODUCT_NAME: DumplingBreathWidgets
+        PRODUCT_BUNDLE_IDENTIFIER: com.avaresearch.dumplingbreath.widgets
+        SKIP_INSTALL: YES
+
+  # -------------------------------------------------------------------------
+  # Apple Watch app — standalone (no phone required). Crown drives the pace,
+  # the Taptic Engine carries the rhythm.
+  # -------------------------------------------------------------------------
+  DumplingBreathWatch:
+    type: application
+    platform: watchOS
+    deploymentTarget:
+      watchOS: "10.0"
+    sources:
+      - path: Watch
+    dependencies:
+      - target: DumplingBreathCore_watchOS
+        embed: true
+    info:
+      path: Config/Watch-Info.plist
+      properties:
+        CFBundleDisplayName: Dumpling Breath
+        WKApplication: true
+        WKCompanionAppBundleIdentifier: com.avaresearch.dumplingbreath
+        # Installs and runs with no iPhone — the breath math and haptics are
+        # entirely on-wrist.
+        WKRunsIndependentlyOfCompanionApp: true
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+    settings:
+      base:
+        SDKROOT: watchos
+        SUPPORTED_PLATFORMS: "watchos watchsimulator"
+        PRODUCT_NAME: DumplingBreathWatch
+        PRODUCT_BUNDLE_IDENTIFIER: com.avaresearch.dumplingbreath.watchkitapp
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        SUPPORTS_MACCATALYST: NO
+        TARGETED_DEVICE_FAMILY: "4"
+
+# Breath-math unit tests run via `cd Core && swift test` (fast, no simulator).
+# Agent 1 owns adding a host-app UI/interaction test target when warranted.
+
+schemes:
+  DumplingBreath:
+    build:
+      targets:
+        DumplingBreath: all
+        DumplingBreathWidgets: all
+        DumplingBreathWatch: all
+    run:
+      config: Debug
+    archive:
+      config: Release
+
+  DumplingBreathWatch:
+    build:
+      targets:
+        DumplingBreathWatch: all
+    run:
+      config: Debug

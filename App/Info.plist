@@ -18,10 +18,25 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.avaresearch.dumplingbreath</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>dumplingbreath</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Dumpling Breath can read your Mindful Minutes so a completed session shows up alongside the rest of your mindfulness time. This is optional and stays on your device.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Turn this on and Dumpling Breath logs a finished session as Mindful Minutes in the Health app, and — if you choose — a State of Mind entry. Nothing is sent anywhere; it is written only to Health on this device.</string>
 	<key>UIBackgroundModes</key>
 	<array/>
 	<key>UILaunchScreen</key>

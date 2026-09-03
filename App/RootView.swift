@@ -7,13 +7,15 @@ import DumplingBreathCore
 struct RootView: View {
     @AppStorage("patternID") private var patternID = BreathingPattern.coherent.id
     @State private var showingPatterns = false
+    @State private var autoStart = false
+    @Environment(\.scenePhase) private var scenePhase
 
     private var pattern: BreathingPattern {
         BreathingPattern.bundled.first { $0.id == patternID } ?? .coherent
     }
 
     var body: some View {
-        SqueezeView(pattern: pattern)
+        SqueezeView(pattern: pattern, autoStart: $autoStart)
             .overlay(alignment: .topTrailing) {
                 Button {
                     showingPatterns = true
@@ -31,6 +33,29 @@ struct RootView: View {
                     .presentationDetents([.medium])
                     .presentationDragIndicator(.visible)
             }
+            // A widget's whole-tile tap deep-links in here…
+            .onOpenURL { url in
+                if let id = SessionRequestStore.patternID(from: url) {
+                    beginRequestedSession(patternID: id)
+                }
+            }
+            // …while the App Intent and Control Center control leave a request
+            // in the app group for us to pick up when we next become active.
+            .onChange(of: scenePhase) { _, phase in
+                if phase == .active, let id = SessionRequestStore.consumePendingRequest() {
+                    beginRequestedSession(patternID: id)
+                }
+            }
+    }
+
+    /// Honour a start request from outside the app. An empty id means "just
+    /// start with whatever pattern is already selected."
+    private func beginRequestedSession(patternID id: String) {
+        if !id.isEmpty, BreathingPattern.bundled.contains(where: { $0.id == id }) {
+            patternID = id
+        }
+        showingPatterns = false
+        autoStart = true
     }
 }
 
