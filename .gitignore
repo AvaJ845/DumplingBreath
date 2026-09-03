@@ -1,0 +1,26 @@
+# Xcode / build
+DerivedData/
+build/
+*.xcodeproj
+*.xcworkspace
+!default.xcworkspace
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+
+# XcodeGen generates the project; keep only project.yml in git
+DumplingBreath.xcodeproj/
+
+# macOS
+.DS_Store
+
+# SwiftPM
+.swiftpm/
+.build/
+Package.resolved
+
+# Secrets / signing
+*.mobileprovision
+*.p12
+*.cer
+ExportOptions.plist
