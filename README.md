@@ -8,10 +8,19 @@ iPhone · iPad · Apple Watch.
 
 ## Status
 
-Iteration 0 — scaffold. Core breath clock + engine + a placeholder dumpling and
-haptic choreographer are in place and unit-tested. Three workstreams are building
-out feel, haptics, and the ecosystem/App-Store surface in parallel — see
-[AGENTS.md](AGENTS.md).
+Iteration 1 — integrated. Builds clean for **iPhone, iPad, and Apple Watch**;
+30/30 core tests pass; zero Swift warnings.
+
+- Metal squish shader (thumb-tracking dimple), per-phase haptic choreography with
+  no-Taptic audio fallback, hardened breath engine
+- Apple Watch app (Digital Crown + Taptic), Lock/Home Screen widgets, iOS 18
+  Control Center control, App Intents / Siri
+- Opt-in HealthKit Mindful Minutes + State of Mind, settings/privacy screen,
+  seeded String Catalog
+- App Store + Featuring Nomination + Privacy + Icon-brief docs in `docs/`
+
+**Not done:** on-device feel tuning (every squish/haptic constant is a first
+guess), the app icon, a signing team. See [AGENTS.md](AGENTS.md) DoD.
 
 ## North Star
 

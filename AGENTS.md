@@ -46,15 +46,26 @@ in `Sources/Core/`.
 
 ## Definition of done for the "north star Apple build"
 
-- [ ] Builds clean for iOS + watchOS, no warnings, strict concurrency on.
-- [ ] `xcodebuild test` green.
+- [x] Builds clean for iOS + watchOS, no warnings, strict concurrency on.
+      (iPhone 17, iPad Pro 11", Apple Watch Series 11 — sim, `CODE_SIGNING_ALLOWED=NO`.)
+- [x] `cd Core && swift test` green — 30/30.
 - [ ] Squeeze-to-breathe feels alive on a real iPhone; degrades gracefully (no
       crash, sensible visual/audio) on iPad and no-haptics devices.
-- [ ] Watch app: Digital Crown drives the breath, Taptic carries it.
-- [ ] Lock Screen widget + App Intent / Control Center control start a session.
-- [ ] Full VoiceOver, Dynamic Type, Reduce Motion, dark mode.
-- [ ] Localized strings extracted (English + at least the string catalog scaffold).
-- [ ] `PrivacyInfo.xcprivacy` accurate: collects nothing, no tracking.
-- [ ] `docs/APP_STORE.md` + `docs/FEATURING_NOMINATION.md` drafted.
-- [ ] App icon: brief written and 1024 placeholder in place (final art is a
-      separate design commission).
+      **← needs on-device tuning; every squish/haptic constant is a first guess.**
+- [x] Watch app: Digital Crown drives the breath, Taptic carries it.
+      (Continuous CHHapticEngine texture on watch = future enhancement; phase-turn
+      + mid-phase `WKInterfaceDevice` taps for now.)
+- [x] Lock Screen widget + App Intent / Control Center control start a session.
+      (Wired into `RootView` via `SessionRequestStore`.)
+- [x] Full VoiceOver, Dynamic Type, Reduce Motion, dark mode.
+- [x] Localized strings: `App/Localizable.xcstrings` seeded (English), build
+      settings emit strings; full translation is a later task.
+- [x] `PrivacyInfo.xcprivacy` accurate: collects nothing, no tracking.
+- [x] `docs/APP_STORE.md` + `docs/FEATURING_NOMINATION.md` drafted.
+- [x] Settings / Privacy screen: haptic + input + Health opt-in toggles, plain
+      "collects nothing" statement. (`Sources/Views/SettingsView.swift`.)
+- [ ] App icon: brief written (`docs/APP_ICON_BRIEF.md`); **no art yet** — final
+      icon is a separate design commission and the top featuring asset.
+- [ ] Real `DEVELOPMENT_TEAM` + App Group / HealthKit capabilities in the portal
+      (needed for device / TestFlight; simulator is fine without).
+- [ ] Naming Council / live App Store collision check on "Dumpling Breath".

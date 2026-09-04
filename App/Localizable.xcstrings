@@ -1,0 +1,94 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "At rest" : {
+      "comment" : "VoiceOver value for the dumpling when no session is running.",
+      "extractionState" : "manual"
+    },
+    "Breathe in" : {
+      "comment" : "Breath phase instruction. Keep to 1–2 words.",
+      "extractionState" : "manual"
+    },
+    "Breathe out" : {
+      "comment" : "Breath phase instruction. Keep to 1–2 words.",
+      "extractionState" : "manual"
+    },
+    "Breathing" : {
+      "comment" : "Title of the pattern picker and the breathing settings section.",
+      "extractionState" : "manual"
+    },
+    "Breathing dumpling" : {
+      "comment" : "VoiceOver label for the main interactive element.",
+      "extractionState" : "manual"
+    },
+    "Choose breathing pattern" : {
+      "comment" : "Accessibility label for the pattern button.",
+      "extractionState" : "manual"
+    },
+    "Dumpling Breath collects nothing. Your settings live on this device. There is no server, no sign-in, and no data to leak. Version %@." : {
+      "comment" : "Privacy section footer. %@ is the version string.",
+      "extractionState" : "manual"
+    },
+    "Done" : {
+      "extractionState" : "manual"
+    },
+    "Hold" : {
+      "comment" : "Breath phase instruction for the hold phases.",
+      "extractionState" : "manual"
+    },
+    "Hold to breathe" : {
+      "comment" : "Resting prompt shown under the dumpling in hold-to-breathe mode.",
+      "extractionState" : "manual"
+    },
+    "Holding the dumpling" : {
+      "extractionState" : "manual"
+    },
+    "Haptics" : {
+      "extractionState" : "manual"
+    },
+    "Log a moment of calm" : {
+      "comment" : "Toggle to write an iOS 18 State of Mind entry.",
+      "extractionState" : "manual"
+    },
+    "Log Mindful Minutes" : {
+      "comment" : "Toggle to write a Mindful Minutes sample to the Health app.",
+      "extractionState" : "manual"
+    },
+    "No account, ever" : {
+      "extractionState" : "manual"
+    },
+    "No analytics, no tracking" : {
+      "extractionState" : "manual"
+    },
+    "No network connection at all" : {
+      "extractionState" : "manual"
+    },
+    "Rest" : {
+      "comment" : "Breath phase instruction for the empty hold.",
+      "extractionState" : "manual"
+    },
+    "Resting" : {
+      "comment" : "VoiceOver announcement when a session stops.",
+      "extractionState" : "manual"
+    },
+    "Settings" : {
+      "extractionState" : "manual"
+    },
+    "Start a session by" : {
+      "comment" : "Picker label: hold vs tap.",
+      "extractionState" : "manual"
+    },
+    "Strength" : {
+      "comment" : "Label for the haptic intensity slider.",
+      "extractionState" : "manual"
+    },
+    "Tap to breathe" : {
+      "comment" : "Resting prompt shown under the dumpling in tap-to-toggle mode.",
+      "extractionState" : "manual"
+    },
+    "Tapping once" : {
+      "extractionState" : "manual"
+    }
+  },
+  "version" : "1.0"
+}

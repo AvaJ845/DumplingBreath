@@ -24,8 +24,10 @@ patience curve, not a failure.
       Bundle id `com.avaresearch.dumplingbreath` is already taken internally.
 - [ ] Confirm the name is free of trademark conflict in the wellness / food
       crossover space.
-- [ ] Decide primary category: **Health & Fitness** (recommended) vs
-      **Lifestyle**. Secondary: the other one.
+- [x] Primary category: **Health & Fitness** (decided 2026-09-03). Secondary:
+      **Lifestyle**. Rationale: strongest keyword relevance (breathing, calm,
+      anxiety) and where Apple curates mindfulness collections — worth the
+      heavier competition per the playbook's "Indie Battlefield" rule.
 - [ ] Age rating questionnaire → expect 4+ (no objectionable content, no ads,
       no unrestricted web, no UGC).
 - [ ] Confirm final pricing model: **free**, with a single optional one-time

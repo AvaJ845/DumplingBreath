@@ -18,6 +18,8 @@ settings:
     DEVELOPMENT_TEAM: ""
     CODE_SIGN_STYLE: Automatic
     ALWAYS_SEARCH_USER_PATHS: NO
+    SWIFT_EMIT_LOC_STRINGS: YES
+    LOCALIZATION_PREFERS_STRING_CATALOGS: YES
 
 # ---------------------------------------------------------------------------
 # The pure breath-math lives in Core/ as a Swift package so `swift test` runs

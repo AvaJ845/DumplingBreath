@@ -7,6 +7,7 @@ import DumplingBreathCore
 struct RootView: View {
     @AppStorage("patternID") private var patternID = BreathingPattern.coherent.id
     @State private var showingPatterns = false
+    @State private var showingSettings = false
     @State private var autoStart = false
     @Environment(\.scenePhase) private var scenePhase
 
@@ -16,6 +17,18 @@ struct RootView: View {
 
     var body: some View {
         SqueezeView(pattern: pattern, autoStart: $autoStart)
+            .overlay(alignment: .topLeading) {
+                Button {
+                    showingSettings = true
+                } label: {
+                    Image(systemName: "gearshape")
+                        .font(.title3)
+                        .padding(24)
+                        .contentShape(Rectangle())
+                }
+                .tint(.secondary)
+                .accessibilityLabel("Settings")
+            }
             .overlay(alignment: .topTrailing) {
                 Button {
                     showingPatterns = true
@@ -32,6 +45,9 @@ struct RootView: View {
                 PatternPicker(selection: $patternID)
                     .presentationDetents([.medium])
                     .presentationDragIndicator(.visible)
+            }
+            .sheet(isPresented: $showingSettings) {
+                SettingsView()
             }
             // A widget's whole-tile tap deep-links in here…
             .onOpenURL { url in
