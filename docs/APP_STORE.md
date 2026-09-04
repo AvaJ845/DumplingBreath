@@ -17,13 +17,24 @@ patience curve, not a failure.
 
 ## 0. Blocking checklist — do before metadata is locked
 
-- [ ] **Run the Naming Council** (`aso-playbook` skill / 3-Fellow naming review)
-      with a LIVE App Store collision + confusability check on
-      "Dumpling Breath". This has **not** been done. Check also against our own
-      portfolio namespaces (Top Pup, Decoder, Hummingbird, Kestrel, …).
-      Bundle id `com.avaresearch.dumplingbreath` is already taken internally.
-- [ ] Confirm the name is free of trademark conflict in the wellness / food
-      crossover space.
+- [x] **Naming Council run 2026-09-03** — verdict **Revise**. The mark
+      "Dumpling Breath" is clear (no App Store collision), but see the two
+      blocking items below. Full record + revised paste-ready fields in
+      [METADATA.md](METADATA.md).
+- [ ] **🚨 Resolve the Loomi overlap (user decision).** `~/Documents/Loomi`
+      (`com.loomi.app`) is a one-tap breathing/stress-relief app — standalone
+      Breathe, widget, HealthKit Mindful Minutes, mascot, subtitle "Calm
+      breathing, private & free" — i.e. the same concept. Decide: **supersede**
+      (Dumpling Breath replaces Loomi) or **split** (Dumpling Breath cedes
+      "calm breathing", leads on squeeze/haptic/Watch). Loomi last touched
+      2026-07-01, never launched.
+- [ ] Run **USPTO TESS** on "DUMPLING" in IC 009 (software) before any brand /
+      logo spend. Food marks (DUMPLING D'OR, DUMPLINGGO) don't conflict;
+      Dumpling, Inc. (grocery-shopper platform) holds software marks — different
+      goods, low confusion, but check.
+- [ ] Apply the **exclusion list** in [METADATA.md](METADATA.md) across name,
+      subtitle, keywords, description, screenshots (calming tool, not medical
+      care).
 - [x] Primary category: **Health & Fitness** (decided 2026-09-03). Secondary:
       **Lifestyle**. Rationale: strongest keyword relevance (breathing, calm,
       anxiety) and where Apple curates mindfulness collections — worth the
