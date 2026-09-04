@@ -17,17 +17,15 @@ patience curve, not a failure.
 
 ## 0. Blocking checklist — do before metadata is locked
 
-- [x] **Naming Council run 2026-09-03** — verdict **Revise**. The mark
-      "Dumpling Breath" is clear (no App Store collision), but see the two
-      blocking items below. Full record + revised paste-ready fields in
+- [x] **Naming Council run 2026-09-03** — verdict **Revise → Approve** once the
+      Loomi decision landed. The mark "Dumpling Breath" is clear (no App Store
+      collision). Full record + council-approved paste-ready fields in
       [METADATA.md](METADATA.md).
-- [ ] **🚨 Resolve the Loomi overlap (user decision).** `~/Documents/Loomi`
-      (`com.loomi.app`) is a one-tap breathing/stress-relief app — standalone
-      Breathe, widget, HealthKit Mindful Minutes, mascot, subtitle "Calm
-      breathing, private & free" — i.e. the same concept. Decide: **supersede**
-      (Dumpling Breath replaces Loomi) or **split** (Dumpling Breath cedes
-      "calm breathing", leads on squeeze/haptic/Watch). Loomi last touched
-      2026-07-01, never launched.
+- [x] **Loomi overlap resolved 2026-09-03 → SUPERSEDE.** Dumpling Breath
+      replaces Loomi (`~/Documents/Loomi`, `com.loomi.app`) — never launched, so
+      no users to migrate and "calm breathing" stays free. Retirement checklist
+      + "do not port Loomi's breadth" note in
+      [METADATA.md → Loomi supersession](METADATA.md#loomi-supersession-decided-2026-09-03).
 - [ ] Run **USPTO TESS** on "DUMPLING" in IC 009 (software) before any brand /
       logo spend. Food marks (DUMPLING D'OR, DUMPLINGGO) don't conflict;
       Dumpling, Inc. (grocery-shopper platform) holds software marks — different
