@@ -67,6 +67,14 @@ Trade-off we are accepting (per playbook §1): an unknown indie normally should
 not spend the 30-char Name field on brand alone. We split the difference — the
 brand leads (editor-clean, ownable) and a short keyword tail still indexes.
 
+**This is a settled decision, not a compromise to revisit.** See
+[METADATA.md → Reconciling the two North Stars](METADATA.md#reconciling-the-two-north-stars-resolves-the-discoverability-finding):
+the two North Stars collide only on the first ~15 chars of the Name; the brand
+word "Breath" already indexes, the descriptor is legitimate not stuffing, and
+the Subtitle + 99-char Keywords field carry the whole search fight where no
+editor ever looks. Featuring is zero-to-one; the ASO flywheel is the multi-year
+one-to-N. They don't compete for the same lever.
+
 ### App Store Name (30 char budget)
 
 ```

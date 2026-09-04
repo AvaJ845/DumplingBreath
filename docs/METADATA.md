@@ -35,6 +35,55 @@ on-convention, sayable to Siri. Before the name and metadata lock:
 3. **Add the exclusion list** (below).
 4. **Run USPTO TESS** on "DUMPLING" in IC 009 before any brand/logo spend.
 
+> **Loomi is the only true blocker.** The Discoverability Fellow's name concern
+> is *resolved* by the reconciliation below — it is not a reason to hold.
+
+---
+
+## Reconciling the two North Stars (resolves the Discoverability finding)
+
+The two North Stars conflict on exactly **one lever: the first ~15 characters of
+the App Store Name.** Nowhere else.
+
+- **NS1/NS2 (featuring):** Apple editors feature *clean brands* — Oak, Bears,
+  Finch, Calm. A keyword-stuffed title reads as ASO spam and loses the
+  Today-tab story, which is our **only** path from zero to visible.
+- **ASO playbook:** an unknown indie should lead the Name with the primary
+  keyword, because the first word is the heaviest-weighted token.
+
+**Resolution — `Dumpling Breath: Calm Breathing` serves both, and here is why
+that is not a fudge:**
+
+1. **The brand itself is a keyword.** "Dumpling **Breath**" already indexes
+   `breath` with zero help — unlike "Loomi" or "Oak", which index nothing. We
+   are not spending the name slot on a meaningless brand.
+2. **The descriptor is legitimate, not stuffing.** `: Calm Breathing` is a
+   plain one-line statement of what the app is — the exact shape Apple's own
+   naming guidance recommends and that featured apps use ("Oak — Meditation &
+   Breathing"). It adds `calm` + `breathing` to the index. It becomes
+   un-featurable only if it grows to "…Calm Breathing Relax Sleep Anxiety Zen".
+3. **The playbook's flywheel lives in the fields editors never see.** Apple
+   concatenates Name + Subtitle + Keywords into one indexed string. Subtitle
+   (`Ease stress with a squeeze`) and the 99-char Keywords field carry 16+
+   category terms at **zero cost to the featuring story** — nobody browsing the
+   Today tab sees them. That is where "fight on the indie battlefield" happens.
+4. **Different timescales.** Featuring is the zero-to-one (weeks). The ASO
+   flywheel is the one-to-N compounding curve (the source deck's own app took
+   ~3 years to reach US Top 5). They don't compete for the same moment — a
+   feature *seeds* the reviews and installs that then feed the flywheel.
+
+**Therefore:** keep the brand-first Name. Do **not** switch to
+`Calm Breathing - Dumpling` unless the *supersede* decision is made and Loomi's
+"calm breathing" keyword is inherited — in which case search rank has been
+chosen as the priority and featuring can lean on the (still clean) two-word
+brand alone.
+
+The Fellow's other two findings stand and cost nothing against featuring — they
+are applied below:
+- subtitle no longer stem-repeats "breath" (`Feel each breath` → `Ease stress
+  with a squeeze`)
+- `meditation` (a Trap term) dropped from Keywords.
+
 ---
 
 ## Paste-ready fields (revised per council — "split" case)
